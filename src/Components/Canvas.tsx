@@ -1,5 +1,5 @@
 import React, {
-    useEffect, useRef, useState,
+    useEffect, useRef, useState, useMemo,
 } from 'react';
 import {
     Sprite, Text, Graphics, Container, Stage,
@@ -8,6 +8,7 @@ import {
 import * as PIXI from 'pixi.js';
 import { useSettingsContext } from '../Contexts/SettingsContext';
 import { usePlayContext } from '../Contexts/PlayContext';
+import circle from '../assets/circle.svg';
 
 const width = 1500;
 const height = 600;
@@ -27,6 +28,12 @@ function Canvas() {
         shapeSpeed,
         count,
     } = useSettingsContext();
+
+    const circleTexture = useMemo(() => PIXI.Texture.from(circle, {
+        resourceOptions: {
+            scale: shapeSize / 100,
+        },
+    }), [shapeSize]);
 
     const {
         playing,
@@ -101,7 +108,8 @@ function Canvas() {
             width={1500}
             height={600}
             options={{
-                antialias: false,
+                backgroundColor: 0xF1E1F1,
+                antialias: true,
                 autoDensity: true,
                 resolution: window.devicePixelRatio || 1,
             }}
@@ -115,33 +123,36 @@ function Canvas() {
                     graphics.endFill();
                 }}
             />
-            {
-                shapeType === 'circle' ? (
-                    <Graphics
-                        draw={(graphics) => {
-                            graphics.clear();
-                            graphics.beginFill(shapeColor);
-                            graphics.drawCircle(0, 0, shapeSize);
-                            graphics.endFill();
-                        }}
-                        x={x}
-                        y={y}
-                        anchor={0.5}
-                    />
-                ) : (
-                    <Graphics
-                        draw={(graphics) => {
-                            graphics.clear();
-                            graphics.beginFill(shapeColor);
-                            graphics.drawRect(-shapeSize, -shapeSize, shapeSize * 2, shapeSize * 2);
-                            graphics.endFill();
-                        }}
-                        x={x}
-                        y={y}
-                        anchor={0.5}
-                    />
-                )
-            }
+            <Container>
+                {
+                    shapeType === 'circle' ? (
+                        <Sprite
+                            texture={circleTexture}
+                            position={[x, y]}
+                            anchor={{
+                                x: 0.5,
+                                y: 0.5,
+                            }}
+                            tint={shapeColor}
+                            alpha={1}
+                            scale={shapeSize / 100}
+                        />
+                    ) : (
+                        <Graphics
+                            draw={(graphics) => {
+                                graphics.clear();
+                                graphics.beginFill(shapeColor);
+                                graphics
+                                    .drawRect(-shapeSize, -shapeSize,shapeSize * 2, shapeSize * 2);
+                                graphics.endFill();
+                            }}
+                            x={x}
+                            y={y}
+                            anchor={0.5}
+                        />
+                    )
+                }
+            </Container>
             <Text
                 text={`Count: ${currentCount}`}
                 x={50}
