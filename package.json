@@ -1,0 +1,39 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-frontend": "npm run dev",
+    "lint": "eslint ./src --ext .js,.jsx",
+    "lint:fix": "eslint ./frontend/* --ext .js,.jsx --fix",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@pixi/react": "^7.1.1",
+    "@types/node": "^20.11.30",
+    "pixi.js": "^7.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.69",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^1",
+    "autoprefixer": "^10",
+    "daisyui": "^3",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "vite": "^5.0.8",
+    "vite-plugin-eslint": "^1.8.1"
+  }
+}
